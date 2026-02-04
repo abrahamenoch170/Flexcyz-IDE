@@ -1,0 +1,17 @@
+ENDPOINT: {{method}} {{path}}
+PURPOSE: {{description}}
+AUTH: {{auth_required}}
+INPUT: {{input_schema}}
+OUTPUT: {{output_schema}}
+
+Generate a complete API endpoint handler with:
+
+1. Input validation
+2. Authentication check (if required)
+3. Business logic implementation
+4. Error handling (400, 401, 500)
+5. Response formatting
+
+FRAMEWORK: {{framework}}
+
+Return ONLY the handler code.
