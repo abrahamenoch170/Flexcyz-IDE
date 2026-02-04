@@ -1,0 +1,17 @@
+DATABASE: {{database_type}}
+TABLE: {{table_name}}
+PURPOSE: {{description}}
+
+Generate complete schema with:
+
+1. Primary key (UUID recommended)
+2. All required fields with types
+3. Foreign key relationships
+4. Indexes for performance
+5. Constraints (UNIQUE, CHECK, etc.)
+6. Timestamps (created_at, updated_at)
+
+RELATIONSHIPS:
+{{relationships}}
+
+Return SQL/Schema definition only.
