@@ -1,0 +1,5 @@
+{
+  "name": "Flexcyz IDE",
+  "description": "A browser-based IDE interface for the Flexcyz autonomous agent framework, visualizing the requested project structure with an Orchid-themed UI.",
+  "requestFramePermissions": []
+}
