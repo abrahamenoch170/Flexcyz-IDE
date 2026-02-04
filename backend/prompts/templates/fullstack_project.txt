@@ -1,0 +1,32 @@
+PROJECT: {{name}}
+TYPE: {{project_type}}
+TECH_STACK: {{tech_stack}}
+FEATURES: {{features}}
+
+Generate complete project structure:
+
+FRONTEND ({{frontend_framework}}):
+- Component architecture
+- State management setup
+- API client configuration
+- Routing structure
+- Styling system
+
+BACKEND ({{backend_framework}}):
+- API routes
+- Database models
+- Authentication
+- Middleware
+- Error handling
+
+DATABASE ({{database}}):
+- Schema definition
+- Migration files
+- Seed data (if needed)
+
+DEPLOYMENT:
+- Build configuration
+- Environment variables
+- Platform-specific files
+
+Provide file-by-file implementation.
