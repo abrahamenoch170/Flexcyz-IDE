@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexcyz - Autonomous AI IDE</title>
+    
+    <!-- CodeMirror 6 -->
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@6.0.1/dist/codemirror.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@6.0.1/lib/codemirror.min.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <i data-lucide="rocket" class="logo-icon"></i>
+                <span class="logo-text">Flexcyz</span>
+                <span class="project-name" id="project-name">New Project</span>
+            </div>
+            <div class="header-right">
+                <button class="btn-icon" id="btn-settings" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+                <button class="btn-icon" id="btn-deploy" title="Deploy">
+                    <i data-lucide="cloud-upload"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Chat Area -->
+            <div class="chat-container" id="chat-container">
+                <div class="messages" id="messages">
+                    <!-- Welcome message -->
+                    <div class="message ai-message">
+                        <div class="message-avatar">
+                            <i data-lucide="bot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>👋 I'm Flexcyz, your autonomous AI engineer.</p>
+                            <p>Tell me what you want to build and I'll handle everything - planning, coding, testing, and deployment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Panel (hidden initially) -->
+            <div class="preview-panel" id="preview-panel" style="display: none;">
+                <div class="preview-header">
+                    <span class="preview-title">🌐 Live Preview</span>
+                    <button class="btn-icon" id="btn-close-preview">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <iframe id="preview-frame" src=""></iframe>
+            </div>
+        </main>
+
+        <!-- Agent Pipeline Status -->
+        <div class="agent-pipeline" id="agent-pipeline" style="display: none;">
+            <div class="pipeline-step" data-agent="planner">
+                <div class="step-icon"><i data-lucide="brain"></i></div>
+                <span>Plan</span>
+                <div class="step-status"></div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step" data-agent="architect">
+                <div class="step-icon"><i data-lucide="layout"></i></div>
+                <span>Design</span>
+                <div class="step-status"></div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step" data-agent="coder">
+                <div class="step-icon"><i data-lucide="code"></i></div>
+                <span>Code</span>
+                <div class="step-status"></div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step" data-agent="reviewer">
+                <div class="step-icon"><i data-lucide="search"></i></div>
+                <span>Review</span>
+                <div class="step-status"></div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-step" data-agent="deployer">
+                <div class="step-icon"><i data-lucide="rocket"></i></div>
+                <span>Deploy</span>
+                <div class="step-status"></div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <div class="input-container">
+                <button class="btn-attach" id="btn-attach">
+                    <i data-lucide="paperclip"></i>
+                </button>
+                <textarea 
+                    id="message-input" 
+                    placeholder="Build me a crypto dashboard with React..."
+                    rows="1"
+                ></textarea>
+                <button class="btn-mic" id="btn-mic">
+                    <i data-lucide="mic"></i>
+                </button>
+                <button class="btn-send" id="btn-send">
+                    <i data-lucide="send"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settings-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ Settings</h2>
+                <button class="btn-close" id="btn-close-settings">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <section>
+                    <h3>AI Models</h3>
+                    <div class="setting-item">
+                        <label>OpenRouter API Key</label>
+                        <input type="password" id="setting-openrouter" placeholder="sk-or-...">
+                    </div>
+                    <div class="setting-item">
+                        <label>HuggingFace Token</label>
+                        <input type="password" id="setting-hf" placeholder="hf_...">
+                    </div>
+                </section>
+                
+                <section>
+                    <h3>Deployment</h3>
+                    <div class="setting-item">
+                        <label>Vercel Token</label>
+                        <input type="password" id="setting-vercel" placeholder="">
+                    </div>
+                    <div class="setting-item">
+                        <label>Railway Token</label>
+                        <input type="password" id="setting-railway" placeholder="">
+                    </div>
+                    <div class="setting-item">
+                        <label>Supabase Key</label>
+                        <input type="password" id="setting-supabase" placeholder="">
+                    </div>
+                </section>
+                
+                <section>
+                    <h3>GitHub</h3>
+                    <div class="setting-item">
+                        <label>GitHub Token</label>
+                        <input type="password" id="setting-github" placeholder="ghp_...">
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="btn-cancel-settings">Cancel</button>
+                <button class="btn-primary" id="btn-save-settings">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Viewer Modal -->
+    <div class="modal" id="file-modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="file-modal-title">📄 File</h2>
+                <button class="btn-close" id="btn-close-file">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre id="file-content"><code></code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
