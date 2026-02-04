@@ -1,0 +1,49 @@
+REACT FUNCTIONAL COMPONENT TEMPLATE
+
+Generate a React functional component following these standards:
+
+1. IMPORTS
+   - React hooks first: useState, useEffect, useCallback, useMemo
+   - External libraries next
+   - Internal components/utilities last
+   - Use TypeScript for all props
+
+2. COMPONENT STRUCTURE
+   ```typescript
+   interface ComponentNameProps {
+     // Define all props with types
+     // Use optional (?) for non-required props
+     // Document complex types with JSDoc
+   }
+   
+   export const ComponentName: React.FC<ComponentNameProps> = ({ 
+     prop1, 
+     prop2,
+     optionalProp = defaultValue 
+   }) => {
+     // Hooks at top
+     const [state, setState] = useState<Type>(initial);
+     
+     // Effects
+     useEffect(() => {
+       // Effect logic
+       return () => {
+         // Cleanup
+       };
+     }, [dependencies]);
+     
+     // Handlers (useCallback for event handlers)
+     const handleEvent = useCallback(() => {
+       // Handler logic
+     }, [dependencies]);
+     
+     // Derived state (useMemo for expensive computations)
+     const derivedValue = useMemo(() => {
+       return computeExpensive(state);
+     }, [state]);
+     
+     // Render
+     return (
+       // JSX with proper accessibility attributes
+     );
+   };
